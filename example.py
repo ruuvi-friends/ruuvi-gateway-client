@@ -1,18 +1,3 @@
-# simple-ruuvigateway
-
-Work in progress.
-
-## Install
-
-```sh
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -e .
-```
-
-## Example
-
-```py
 import asyncio
 from ruuvi_gateway import gateway
 from ruuvi_gateway.types import ParsedDatas
@@ -36,10 +21,3 @@ async def main():
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
-```
-
-## Execute tests
-
-```sh
-python setup.py test
-```
