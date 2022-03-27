@@ -4,8 +4,8 @@ import aiohttp
 from result import Ok, Err, Result
 from ruuvi_decoders import get_decoder
 
-from ruuvi_gateway.types import SensorData, SensorPayload, ParsedDatas, Payload
-from ruuvi_gateway.parser import parse_session_cookie, parse_password
+from ruuvi_gateway_client.types import SensorData, SensorPayload, ParsedDatas, Payload
+from ruuvi_gateway_client.parser import parse_session_cookie, parse_password
 
 
 def _parse_sensor_payload(mac: str, payload: SensorPayload) -> Tuple[str, SensorData]:

@@ -1,28 +1,29 @@
 import setuptools
 
-with open("README.md", "r", encoding="utf-8") as fh:
+with open('README.md', 'r', encoding='utf-8') as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="ruuvi_gateway",
-    version="0.0.1",
-    author="Example Author",
-    author_email="author@example.com",
-    description="A small example package",
+    name='ruuvi-gateway-client',
+    version='0.0.1',
+    author='Tomi Tuhkanen',
+    author_email='tomi.tuhkanen@iki.fi',
+    description='Client for Ruuvi Gateway',
     long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    long_description_content_type='text/markdown',
+    url='https://github.com/ruuvi-friends/simple-ruuvigateway',
     project_urls={
-        "Bug Tracker": "https://github.com/pypa/sampleproject/issues",
+        'Bug Tracker': 'https://github.com/ruuvi-friends/simple-ruuvigateway/issues',
     },
     classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: MIT License',
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
     ],
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
-    python_requires=">=3.6",
+    package_dir={'': 'src'},
+    packages=setuptools.find_packages(where='src'),
+    python_requires='>=3.6',
     install_requires=[
         'aiohttp',
         'result',

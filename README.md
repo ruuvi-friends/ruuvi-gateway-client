@@ -1,4 +1,4 @@
-# simple-ruuvigateway
+# Ruuvi Gateway Client
 
 Work in progress.
 
@@ -14,8 +14,8 @@ python -m pip install -e .
 
 ```py
 import asyncio
-from ruuvi_gateway import gateway
-from ruuvi_gateway.types import ParsedDatas
+from ruuvi_gateway_client import gateway
+from ruuvi_gateway_client.types import ParsedDatas
 
 STATION_IP = "10.0.0.21"
 USERNAME = "username"

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from ruuvi_gateway import parser
+from ruuvi_gateway_client import parser
 
 
 class TestDataFormats(TestCase):
