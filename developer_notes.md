@@ -30,7 +30,7 @@ $ twine upload -r testpypi dist/*
 
 ### Release a new version
 
-1. Update version and push to master ([example](https://github.com/ttu/ruuvitag-sensor/commit/a141e73952949a37bdcfd5e2902968135ed48146)). 
+1. Update version from setup.cfg and CHANGELOG and push to main 
 2. Update Tags
 ```sh
 $ git tag x.x.x
