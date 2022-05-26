@@ -43,3 +43,15 @@ async def main():
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 ```
+
+## Changelog
+
+[Changelog](CHANGELOG.md)
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+Licensed under the [MIT](LICENSE) License.
