@@ -1,9 +1,15 @@
 # Ruuvi Gateway Client
 
-Work in progress.
+Client for communicating with Ruuvi Gateway.
 
 ## Install
 
+Install latest released version
+```sh
+$ python -m pip install ruuvi-gateway-client
+```
+
+Install letest development version from local sources
 ```sh
 python -m venv .venv
 source .venv/bin/activate
