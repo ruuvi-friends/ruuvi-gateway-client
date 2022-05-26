@@ -46,7 +46,7 @@ loop.run_until_complete(main())
 
 ## Changelog
 
-[Changelog](CHANGELOG.md)
+[Changelog](https://github.com/ruuvi-friends/ruuvi-gateway-client/blob/main/CHANGELOG.md)
 
 ## Contributing
 
@@ -54,4 +54,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## License
 
-Licensed under the [MIT](LICENSE) License.
+Licensed under the [MIT](https://github.com/ruuvi-friends/ruuvi-gateway-client/blob/main/LICENSE) License.
