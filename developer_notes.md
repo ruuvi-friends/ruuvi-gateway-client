@@ -1,5 +1,14 @@
 # Developer Notes
 
+## Execute tests
+
+```sh
+python -m venv .venv
+source .venv/bin/activate
+python -n pip install pytest
+pytest
+```
+
 ## Build and release
 
 https://packaging.python.org/en/latest/tutorials/packaging-projects/#generating-distribution-archives

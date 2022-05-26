@@ -43,12 +43,3 @@ async def main():
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 ```
-
-## Execute tests
-
-```sh
-python -m venv .venv
-source .venv/bin/activate
-python -n pip install pytest
-pytest
-```
