@@ -47,5 +47,8 @@ loop.run_until_complete(main())
 ## Execute tests
 
 ```sh
-python setup.py test
+python -m venv .venv
+source .venv/bin/activate
+python -n pip install pytest
+pytest
 ```
