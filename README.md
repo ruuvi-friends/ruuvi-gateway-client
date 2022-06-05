@@ -1,5 +1,7 @@
 # Ruuvi Gateway Client
 
+[![PyPI](https://img.shields.io/pypi/v/ruuvi_gateway_client.svg)](https://pypi.python.org/pypi/ruuvi_gateway_client)
+
 Client for communicating with Ruuvi Gateway.
 
 ## Install
