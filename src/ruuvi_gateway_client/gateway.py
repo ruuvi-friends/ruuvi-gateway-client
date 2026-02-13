@@ -40,6 +40,8 @@ def _parse_received_data(payload: Payload) -> ParsedDatas:
 
 async def get_auth_info(session: ClientSession, ip: str, cookies: Dict[str, str] = {}) -> Result[str, None]:
     async with session.get(f'http://{ip}/auth', cookies=cookies) as response:
+        if response.status == 200:
+            return Err("Gateway does not require authentication")
         if response.status == 401:
             auth_info = response.headers["WWW-Authenticate"]
             return Ok(auth_info)
@@ -53,9 +55,14 @@ async def authorize_user(session: ClientSession, ip: str, cookies, username: str
         return Ok(response.status) if response.status == 200 else Err(response.status)
 
 
-async def get_data(session: ClientSession, ip: str, cookies: Dict[str, str] = {}) -> Result[ParsedDatas, int]:
+async def get_data(
+    session: ClientSession,
+    ip: str,
+    cookies: Dict[str, str] = {},
+    headers: Dict[str, str] = {},
+) -> Result[ParsedDatas, int]:
     try:
-        async with session.get(f'http://{ip}/history?time=5', cookies=cookies) as response:
+        async with session.get(f'http://{ip}/history?time=5', cookies=cookies, headers=headers) as response:
             if response.status == 200:
                 data = await response.json()
                 parsed = _parse_received_data(data)
@@ -72,7 +79,7 @@ async def get_data(session: ClientSession, ip: str, cookies: Dict[str, str] = {}
 async def get_authenticate_cookies(session: ClientSession, ip: str, username: str, password: str) -> Result[Dict[str, str], str]:
     auth_info_result = await get_auth_info(session, ip)
     if not auth_info_result.is_ok():
-        return Err()
+        return Err(auth_info_result.value)
     cookies = parse_session_cookie(auth_info_result.value)
     password_encrypted = parse_password(
         auth_info_result.value, username, password)
@@ -82,19 +89,32 @@ async def get_authenticate_cookies(session: ClientSession, ip: str, username: st
     return Ok(cookies)
 
 
-async def fetch_data(ip: str, username: str, password: str) -> Result[ParsedDatas, str]:
+async def fetch_data(
+    ip: str,
+    username: str | None = None,
+    password: str | None = None,
+    *,
+    token: str | None = None,
+) -> Result[ParsedDatas, str]:
+    flag_token_auth_mode: bool = token is not None
+    flag_userpass_auth_mode: bool = username is not None or password is not None
+    if (username is None and password is not None) or (username is not None and password is None):
+        return Err("Provide both username and password for authentication")
+    if flag_token_auth_mode and flag_userpass_auth_mode:
+        return Err("Provide either token or username and password, not both")
     async with aiohttp.ClientSession() as session:
-        get_result = await get_data(session, ip)
-        if get_result.is_ok():
-            return Ok(get_result.value)
-        if get_result.value != 302:
-            return Err(f'Fetch failed - {get_result.value}')
+        cookies = {}
+        if flag_userpass_auth_mode:
+            cookie_result = await get_authenticate_cookies(session, ip, username, password)
+            if not cookie_result.is_ok():
+                return Err(f'Authentication failed - {cookie_result.value}')
+            cookies = cookie_result.value
+        
+        headers = {}
+        if flag_token_auth_mode:
+            headers = {"Authorization": f"Bearer {token}"}
 
-        cookie_result = await get_authenticate_cookies(session, ip, username, password)
-        if not cookie_result.is_ok():
-            return Err(f'Authentication failed - {cookie_result.value}')
-
-        get_result = await get_data(session, ip, cookie_result.value)
+        get_result = await get_data(session, ip, cookies=cookies, headers=headers)
         if get_result.is_ok():
             return Ok(get_result.value)
         else:
